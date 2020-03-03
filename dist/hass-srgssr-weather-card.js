@@ -115,9 +115,7 @@ class WeatherCard extends LitElement {
   renderCurrent(stateObj) {
     this.numberElements++;
 
-    const weatherIcon = this.getWeatherIcon(
-      stateObj.attributes["state_id"],
-    );
+    const weatherIcon = this.getWeatherIcon(stateObj.attributes["symbol_id"]);
 
     return html`
       <div class="current ${this.numberElements > 1 ? "spacer" : ""}">
@@ -220,7 +218,7 @@ class WeatherCard extends LitElement {
               </div>
               <i
                 class="icon"
-                style="background: none, url('${this.getWeatherIcon(daily["state_id"])}') no-repeat; background-size: contain"
+                style="background: none, url('${this.getWeatherIcon(daily["symbol_id"])}') no-repeat; background-size: contain"
               ></i>
               <div class="highTemp">
                 ${daily.temperature}${this.getUnit("temperature")}
@@ -249,7 +247,7 @@ class WeatherCard extends LitElement {
   }
 
   getWeatherIcon(stateID) {
-    const iconLocation = this._config.icons || "/community_plugin/hass-srgssr-weather-card/"
+    const iconLocation = this._config.icons || "/hacsfiles/hass-srgssr-weather-card/icons/"
 
     return `${iconLocation}${stateID}.png`;
   }

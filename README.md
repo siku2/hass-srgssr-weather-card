@@ -1,4 +1,4 @@
-# Lovelace animated weather card for SRG SSR
+# Lovelace weather card for SRG SSR
 
 This is a fork of the excellent [Weather Card](https://github.com/bramkragten/weather-card).
 It's designed to be used with the [SRG SSR Weather Integration](https://github.com/siku2/hass-weather-srgssr).
