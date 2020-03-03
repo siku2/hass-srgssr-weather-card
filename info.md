@@ -1,18 +1,8 @@
 # SRG SSR Weather Card
 
-## Installation
-
-You need to add the following to your Lovelace `resources` config.
-
-```yaml
-- type: module
-  url: /community_plugin/weather-card/hass-srgssr-weather-card.js
-```
-
-
 ## Configuration
 
-Add a card with the custom type `custom:srgssr-weather-card`.
+After you've added the plugin to your Lovelace resources configuration you can add a card with the custom type `custom:srgssr-weather-card`.
 
 ```yaml
 - type: custom:srgssr-weather-card
