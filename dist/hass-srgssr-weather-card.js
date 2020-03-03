@@ -2,26 +2,6 @@ const LitElement = Object.getPrototypeOf(customElements.get("hui-view"));
 const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
-const windDirections = [
-  "N",
-  "NNE",
-  "NE",
-  "ENE",
-  "E",
-  "ESE",
-  "SE",
-  "SSE",
-  "S",
-  "SSW",
-  "SW",
-  "WSW",
-  "W",
-  "WNW",
-  "NW",
-  "NNW",
-  "N"
-];
-
 const fireEvent = (node, type, detail, options) => {
   options = options || {};
   detail = detail === null || detail === undefined ? {} : detail;
@@ -155,27 +135,16 @@ class WeatherCard extends LitElement {
       <ul class="variations ${this.numberElements > 1 ? "spacer" : ""}">
         <li>
           <ha-icon icon="mdi:water-percent"></ha-icon>
-          ${stateObj.attributes.humidity}<span class="unit"> % </span>
+          ${stateObj.attributes["rain_probability"]}<span class="unit"> % </span>
         </li>
         <li>
-          <ha-icon icon="mdi:weather-windy"></ha-icon> ${windDirections[
-      parseInt((stateObj.attributes.wind_bearing + 11.25) / 22.5)
-      ]}
+          <ha-icon icon="mdi:weather-pouring"></ha-icon>
+          ${stateObj.attributes["precipitation"]}<span class="unit"> mm </span>
+        </li>
+        <li>
+          <ha-icon icon="mdi:weather-windy"></ha-icon> ${stateObj.attributes.wind_bearing}
           ${stateObj.attributes.wind_speed}<span class="unit">
             ${this.getUnit("length")}/h
-          </span>
-        </li>
-        <li>
-          <ha-icon icon="mdi:gauge"></ha-icon>
-          ${stateObj.attributes.pressure}
-          <span class="unit">
-            ${this.getUnit("air_pressure")}
-          </span>
-        </li>
-        <li>
-          <ha-icon icon="mdi:weather-fog"></ha-icon> ${stateObj.attributes
-        .visibility}<span class="unit">
-            ${this.getUnit("length")}
           </span>
         </li>
         ${next_rising
