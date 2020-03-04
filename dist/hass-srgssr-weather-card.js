@@ -73,6 +73,7 @@ class WeatherCard extends LitElement {
             padding: 8px;
           }
         </style>
+
         <ha-card>
           <div class="not-found">
             Entity not available: ${this._config.entity}
@@ -85,9 +86,7 @@ class WeatherCard extends LitElement {
       <ha-card @click="${this._handleClick}">
         ${this._config.current !== false ? this.renderCurrent(stateObj) : ""}
         ${this._config.details !== false ? this.renderDetails(stateObj) : ""}
-        ${this._config.forecast !== false
-        ? this.renderForecast(stateObj.attributes.forecast)
-        : ""}
+        ${this._config.forecast !== false ? this.renderForecast(stateObj.attributes.forecast) : ""}
       </ha-card>
     `;
   }
@@ -101,19 +100,18 @@ class WeatherCard extends LitElement {
       <div class="current ${this.numberElements > 1 ? "spacer" : ""}">
         <span
           class="icon bigger"
-          style="background: none, url('${weatherIcon}') no-repeat; background-size: contain;"
-          >${stateObj.state}
-        </span>
-        ${this._config.name
-        ? html`
-              <span class="title"> ${this._config.name} </span>
-            `
-        : ""}
-        <span class="temp"
-          >${this.getUnit("temperature") == "°F"
-        ? Math.round(stateObj.attributes.temperature)
-        : stateObj.attributes.temperature}</span
+          style="background-image: url('${weatherIcon}');"
         >
+          ${stateObj.state}
+        </span>
+
+        ${this._config.name ? html`
+          <span class="title"> ${this._config.name} </span>
+        ` : ""}
+
+        <span class="temp">
+          ${this.getUnit("temperature") == "°F" ? Math.round(stateObj.attributes.temperature) : stateObj.attributes.temperature}
+        </span>
         <span class="tempc"> ${this.getUnit("temperature")}</span>
       </div>
     `;
@@ -176,41 +174,36 @@ class WeatherCard extends LitElement {
 
     this.numberElements++;
     return html`
-      <div class="forecast clear ${this.numberElements > 1 ? "spacer" : ""}">
-        ${forecast.slice(0, 5).map(
-      daily => html`
-            <div class="day">
-              <div class="dayname">
-                ${new Date(daily.datetime).toLocaleDateString(lang, {
-        weekday: "short"
-      })}
-              </div>
-              <i
-                class="icon"
-                style="background: none, url('${this.getWeatherIcon(daily["symbol_id"])}') no-repeat; background-size: contain"
-              ></i>
-              <div class="highTemp">
-                ${daily.temperature}${this.getUnit("temperature")}
-              </div>
-              ${daily.templow !== undefined
-          ? html`
-                    <div class="lowTemp">
-                      ${daily.templow}${this.getUnit("temperature")}
-                    </div>
-                  `
-          : ""}
-              ${!this._config.hide_precipitation &&
-          daily.precipitation !== undefined &&
-          daily.precipitation !== null
-          ? html`
-                    <div class="precipitation">
-                      ${daily.precipitation} ${this.getUnit("precipitation")}
-                    </div>
-                  `
-          : ""}
+      <div class="forecast clear">
+        ${forecast.slice(0, 5).map(daily => html`
+          <div class="day">
+            <div class="dayname">
+              ${new Date(daily.datetime).toLocaleDateString(lang, { weekday: "short" })}
             </div>
-          `
-    )}
+            <i
+              class="icon"
+              style="background-image: url('${this.getWeatherIcon(daily["symbol_id"])}');"
+            />
+
+            <div class="temp-inline">
+              <span class="highTemp">
+                ${daily.temperature}${this.getUnit("temperature")}
+              </span>
+              
+              ${daily.templow !== undefined ? html`
+                <span class="lowTemp">
+                  ${daily.templow}${this.getUnit("temperature")}
+                </span>
+              ` : ""}
+            </div>
+
+            ${!this._config.hide_precipitation && daily.precipitation !== undefined && daily.precipitation !== null ? html`
+              <div class="precipitation">
+                ${daily.precipitation} ${this.getUnit("precipitation")}
+              </div>
+            ` : ""}
+          </div>
+        `)}
       </div>
     `;
   }
@@ -249,7 +242,7 @@ class WeatherCard extends LitElement {
         cursor: pointer;
         margin: auto;
         padding-top: 1.3em;
-        padding-bottom: 1.3em;
+        padding-bottom: 1em;
         padding-left: 1em;
         padding-right: 1em;
         position: relative;
@@ -361,6 +354,10 @@ class WeatherCard extends LitElement {
         margin-right: 0;
       }
 
+      .temp-inline > * {
+        display: inline;
+      }
+
       .highTemp {
         font-weight: bold;
       }
@@ -375,21 +372,20 @@ class WeatherCard extends LitElement {
       }
 
       .icon.bigger {
-        width: 10em;
-        height: 10em;
-        margin-top: -4em;
+        width: 9em;
+        height: 6em;
         position: absolute;
         left: 0em;
+        top: 0.8em;
       }
 
       .icon {
         width: 50px;
         height: 50px;
-        margin-right: 5px;
         display: inline-block;
         vertical-align: middle;
         background-size: contain;
-        background-position: center center;
+        background-position: center;
         background-repeat: no-repeat;
         text-indent: -9999px;
       }
@@ -408,4 +404,5 @@ class WeatherCard extends LitElement {
     `;
   }
 }
+
 customElements.define("srgssr-weather-card", WeatherCard);
