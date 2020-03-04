@@ -183,7 +183,7 @@ class WeatherCard extends LitElement {
             <i
               class="icon"
               style="background-image: url('${this.getWeatherIcon(daily["symbol_id"])}');"
-            />
+            ></i>
 
             <div class="temp-inline">
               <span class="highTemp">
@@ -356,6 +356,10 @@ class WeatherCard extends LitElement {
 
       .temp-inline > * {
         display: inline;
+      }
+
+      .temp-inline > * + * {
+        margin-left: 1em;
       }
 
       .highTemp {
