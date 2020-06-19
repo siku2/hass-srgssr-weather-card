@@ -209,7 +209,7 @@ class WeatherCard extends LitElement {
   }
 
   getWeatherIcon(stateID) {
-    const iconLocation = this._config.icons || "/hacsfiles/hass-srgssr-weather-card/icons/"
+    const iconLocation = this._config.icons || "/hacsfiles/lovelace-srgssr-weather-card/icons/"
 
     return `${iconLocation}${stateID}.png`;
   }
