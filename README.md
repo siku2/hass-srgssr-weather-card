@@ -9,6 +9,6 @@ Of course this basically ruins the design of the card, but that's just how it is
 
 ## Installation with HACS
 
-1. Go to the HACS Settings and add the custom repository `siku2/hass-srgssr-weather-card` with category "Plugin".
+1. Go to the HACS Settings and add the custom repository `siku2/lovelace-srgssr-weather-card` with category "Plugin".
 2. Open the "Plugins" tab and search for "SRG SSR Weather Card".
 3. Install and follow the instructions there to set the plugin up.
